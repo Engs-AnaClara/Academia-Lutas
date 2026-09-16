@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('aluno'); // admin | instrutor | aluno
+        Schema::create('alunos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+            $table->string('cpf')->unique();
+            $table->integer('idade');
+            $table->string('endereco');
+            $table->foreignId('modalidade_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        Schema::dropIfExists('alunos');
     }
 };
