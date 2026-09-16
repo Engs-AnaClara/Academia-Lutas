@@ -1,120 +1,121 @@
 <x-app-layout>
 
-```
-<x-slot name="header">
-    <div>
-        <h2 class="text-2xl font-bold text-gray-800">
-            Editar aluno
-        </h2>
+    ```
+    <x-slot name="header">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">
+                Editar aluno
+            </h2>
 
-        <p class="text-sm text-gray-500 mt-1">
-            Atualize os dados de {{ $aluno->nome }}
-        </p>
-    </div>
-</x-slot>
+            <p class="text-sm text-gray-500 mt-1">
+                Atualize os dados de {{ $aluno->nome }}
+            </p>
+        </div>
+    </x-slot>
 
 
-<div class="py-8">
+    <div class="py-8">
 
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
 
-            <form action="{{ route('alunos.update', $aluno) }}" method="POST">
+                <form action="{{ route('alunos.update', $aluno) }}" method="POST">
 
-                @csrf
-                @method('PUT')
+                    @csrf
+                    @method('PUT')
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <div class="md:col-span-2">
+                        <div class="md:col-span-2">
 
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Nome completo
-                        </label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Nome completo
+                            </label>
 
-                        <input
-                            type="text"
-                            name="nome"
-                            value="{{ old('nome', $aluno->nome) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                            <input
+                                type="text"
+                                name="nome"
+                                value="{{ old('nome', $aluno->nome) }}"
+                                class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
 
-                        @error('nome')
+                            @error('nome')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                            @enderror
 
-                    </div>
+                        </div>
 
 
-                    <div>
+                        <div>
 
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            CPF
-                        </label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                CPF
+                            </label>
 
-                        <input
-                            type="text"
-                            name="cpf"
-                            value="{{ old('cpf', $aluno->cpf) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                            <input
+                                type="text"
+                                name="cpf"
+                                id="cpf"
+                                value="{{ old('cpf') }}"
+                                maxlength="11"
+                                inputmode="numeric"
+                                pattern="[0-9]{11}"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+                                class="...">
 
-                        @error('cpf')
+                        </div>
+
+
+                        <div>
+
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Idade
+                            </label>
+
+                            <input
+                                type="number"
+                                name="idade"
+                                value="{{ old('idade', $aluno->idade) }}"
+                                min="1"
+                                class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+
+                            @error('idade')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                            @enderror
 
-                    </div>
+                        </div>
 
 
-                    <div>
+                        <div class="md:col-span-2">
 
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Idade
-                        </label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Endereço
+                            </label>
 
-                        <input
-                            type="number"
-                            name="idade"
-                            value="{{ old('idade', $aluno->idade) }}"
-                            min="1"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                            <input
+                                type="text"
+                                name="endereco"
+                                value="{{ old('endereco', $aluno->endereco) }}"
+                                class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
 
-                        @error('idade')
+                            @error('endereco')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                            @enderror
 
-                    </div>
-
-
-                    <div class="md:col-span-2">
-
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Endereço
-                        </label>
-
-                        <input
-                            type="text"
-                            name="endereco"
-                            value="{{ old('endereco', $aluno->endereco) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-
-                        @error('endereco')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-
-                    </div>
+                        </div>
 
 
-                    <div class="md:col-span-2">
+                        <div class="md:col-span-2">
 
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Modalidade
-                        </label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Modalidade
+                            </label>
 
-                        <select
-                            name="modalidade_id"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                            <select
+                                name="modalidade_id"
+                                class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
 
-                            @foreach ($modalidades as $modalidade)
+                                @foreach ($modalidades as $modalidade)
 
                                 <option
                                     value="{{ $modalidade->id }}"
@@ -124,46 +125,46 @@
 
                                 </option>
 
-                            @endforeach
+                                @endforeach
 
-                        </select>
+                            </select>
 
-                        @error('modalidade_id')
+                            @error('modalidade_id')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                            @enderror
+
+                        </div>
 
                     </div>
 
-                </div>
 
+                    <div class="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
 
-                <div class="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
+                        <a
+                            href="{{ route('alunos.index') }}"
+                            class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">
 
-                    <a
-                        href="{{ route('alunos.index') }}"
-                        class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">
+                            Cancelar
 
-                        Cancelar
+                        </a>
 
-                    </a>
+                        <button
+                            type="submit"
+                            class="px-5 py-2 rounded-lg bg-gray-900 text-white hover:bg-gray-800 font-medium">
 
-                    <button
-                        type="submit"
-                        class="px-5 py-2 rounded-lg bg-gray-900 text-white hover:bg-gray-800 font-medium">
+                            Salvar alterações
 
-                        Salvar alterações
+                        </button>
 
-                    </button>
+                    </div>
 
-                </div>
+                </form>
 
-            </form>
+            </div>
 
         </div>
 
     </div>
-
-</div>
-```
+    ```
 
 </x-app-layout>
